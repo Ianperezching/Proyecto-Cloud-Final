@@ -29,9 +29,9 @@ function Home() {
                 />
                 <h2 style={{ color: '#333' }}>Sobre mí</h2>
                 <p style={{ color: '#555', fontSize: '18px' }}>
-                    <strong>Nombre:</strong> Juan Pérez<br />
-                    <strong>Edad:</strong> 25 años<br />
-                    <strong>Carrera:</strong> Ingeniería en Sistemas<br />
+                    <strong>Nombre:</strong> Ian Marcelo Pérez<br />
+                    <strong>Edad:</strong> 21 años<br />
+                    <strong>Carrera:</strong> Diseño y desarrollo de videojuegos<br />
                 </p>
             </section>
         </div>
