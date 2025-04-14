@@ -2,14 +2,14 @@ import {Unity, useUnityContext} from "react-unity-webgl";
 
 function Game() {
     const { unityProvider, sendMessage } = useUnityContext({
-        loaderUrl: "/UnityReact.loader.js",
-        dataUrl: "/UnityReact.data.unityweb",
-        frameworkUrl: "/UnityReact.framework.js.unityweb",
-        codeUrl: "/UnityReact.wasm.unityweb",
+        loaderUrl: "/BuildVerdadero.loader.js",
+        dataUrl: "/BuildVerdadero.data",
+        frameworkUrl: "/BuildVerdadero.framework.js",
+        codeUrl: "/BuildVerdadero.wasm",
     });
 
-    function handleClickSpawnEnemies() {
-        sendMessage("GameObject", "SpawnEnemies");
+    function HandelSceneRestart() {
+        sendMessage("MenuManager", "ReloadScene");
     }
 
 
@@ -21,7 +21,7 @@ function Game() {
                     <Unity unityProvider={unityProvider} className="centered-unity" />
 
                     <div className="centered-content">
-                        <button onClick={handleClickSpawnEnemies}>Spawn Enemies</button>
+                        <button onClick={HandelSceneRestart}>Restart</button>
                     </div>
 
                 </div>
