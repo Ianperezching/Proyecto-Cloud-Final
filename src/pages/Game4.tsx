@@ -1,4 +1,4 @@
-function Game2() {
+function Game4() {
     return (
       <div>
         <h1>Game 2</h1>
@@ -6,4 +6,4 @@ function Game2() {
       </div>
     );
   }
-  export default Game2;
+  export default Game4;
