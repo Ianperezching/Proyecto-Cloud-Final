@@ -2,7 +2,7 @@ function Game5() {
     return (
       <div>
         <h1>Game 2</h1>
-        <p>This is the second game.</p>
+        <p>This is the fifth game.</p>
       </div>
     );
   }
