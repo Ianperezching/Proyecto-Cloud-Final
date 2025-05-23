@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Unity, useUnityContext } from "react-unity-webgl";
 
 function Game4() {
   const [inputValue, setInputValue] = useState("");
+  const [unityMessage, setUnityMessage] = useState<string | null>(null);
+
   const { unityProvider, sendMessage } = useUnityContext({
     loaderUrl: "Build Nave.loader.js",
     dataUrl: "Build Nave.data",
@@ -19,6 +21,19 @@ function Game4() {
   const handleSendTextToUnity = () => {
     sendMessage("GameController", "UpdateText", inputValue);
   };
+
+  // Recibir mensajes desde Unity
+  useEffect(() => {
+    // Define la función global que Unity llamará
+    (window as any).onUnityMessage = (param: string) => {
+      setUnityMessage(param);
+      console.log("Mensaje recibido de Unity:", param);
+    };
+    // Limpieza
+    return () => {
+      delete (window as any).onUnityMessage;
+    };
+  }, []);
 
   return (
     <div className="game-container">
@@ -42,6 +57,11 @@ function Game4() {
         
         <button onClick={handleSendTextToUnity}>Enviar a Unity</button>
         <button onClick={handleRestartScene}>Reiniciar Escena</button>
+      </div>
+      
+      <div style={{marginTop: "20px"}}>
+        <strong>Mensaje recibido de Unity:</strong>
+        <div style={{color: "#0f0"}}>{unityMessage}</div>
       </div>
     </div>
   );
