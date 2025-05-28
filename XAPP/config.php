@@ -2,7 +2,7 @@
 $servername = "localhost";
 $username = "root";
 $password = "";
-$dbname = "game_db";
+$dbname = "cloud";
 // Create connection
 
 $conn = new mysqli($servername, $username, $password, $dbname);

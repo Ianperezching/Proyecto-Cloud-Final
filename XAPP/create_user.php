@@ -15,7 +15,7 @@ $password = $data["password"];
 
 $created_by = "system";
 
-$stmt = $conn->prepare("CALL add_user(?, ?, ?, ?)");
+$stmt = $conn->prepare("CALL sp_create_user(?, ?, ?, ?)");
 $stmt->bind_param("ssss", $username, $email, $password, $created_by);
 $stmt->execute();
 

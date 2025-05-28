@@ -1,22 +1,30 @@
 <?php
-require 'db.php';
+require 'config.php';
+
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
+
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
 
 $data = json_decode(file_get_contents("php://input"), true);
-$email = $data['email'];
-$password = $data['password'];
-$ip = $_SERVER['REMOTE_ADDR'];
+$username = $data["username"];
+$password = $data["password"];
 
-$stmt = $pdo->prepare("SELECT * FROM users WHERE email = ?");
-$stmt->execute([$email]);
-$user = $stmt->fetch(PDO::FETCH_ASSOC);
+$stmt = $conn->prepare("CALL sp_login_user(?, ?)");
+$stmt->bind_param("ss", $username, $password);
+$stmt->execute();
 
-if ($user && password_verify($password, $user['password'])) {
-    // Registrar login
-    $login = $pdo->prepare("INSERT INTO login (user_id, ip_address) VALUES (?, ?)");
-    $login->execute([$user['id'], $ip]);
+$result = $stmt->get_result();
+$user = $result->fetch_assoc();
 
-    echo json_encode(["success" => true, "message" => "Login exitoso"]);
+if ($user) {
+    echo json_encode(["status" => "success", "message" => "Inicio de sesión exitoso", "user" => $user]);
 } else {
-    echo json_encode(["success" => false, "message" => "Credenciales inválidas"]);
+    echo json_encode(["status" => "error", "message" => "Credenciales inválidas"]);
 }
+
+$stmt->close();
+$conn->close();
 ?>

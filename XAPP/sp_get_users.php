@@ -1,5 +1,8 @@
 <?php
-require_once 'db_connection.php';
+require 'config.php';
+
+header("Access-Control-Allow-Origin: *");
+header("Content-Type: application/json");
 
 $result = $conn->query("CALL sp_get_users()");
 
