@@ -1,19 +1,20 @@
-import React, { useState } from "react";
+import React from "react";
 
 function Game2() {
-  const [inputValue, setInputValue] = useState("");
-
   return (
-    <div>
-      <h1>Game 2</h1>
-      <p>This is the second game.</p>
-      <input
-        type="text"
-        value={inputValue}
-        onChange={(e) => setInputValue(e.target.value)}
-        placeholder="Escribe aquí..."
-      />
+    <div className="centered-container">
+      <div className="centered-content">
+        <h1 className="centered-title">Game 2</h1>
+        <iframe
+          src="/media/construct2/index.html"
+          width="800"
+          height="600"
+          style={{ border: "none" }}
+          title="Construct 2 Game"
+        ></iframe>
+      </div>
     </div>
   );
 }
+
 export default Game2;
