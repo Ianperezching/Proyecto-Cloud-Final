@@ -6,7 +6,7 @@ function Game2() {
       <div className="centered-content">
         <h1 className="centered-title">Game 2</h1>
         <iframe
-          src="/media/construct2/index.html"
+          src="/index.html"
           width="800"
           height="600"
           style={{ border: "none" }}
