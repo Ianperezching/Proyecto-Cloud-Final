@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './Login.css';
 
 const Login: React.FC = () => {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
@@ -12,19 +12,20 @@ const Login: React.FC = () => {
     setLoading(true);
     setError('');
     try {
-      const response = await fetch('/XAPP/login.php', {
+      const response = await fetch('login.php', {
         method: 'POST',
         headers: {
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
         },
-        body: `username=${encodeURIComponent(username)}&password=${encodeURIComponent(password)}`,
+        body: JSON.stringify({ email, password }),
       });
       const data = await response.json();
-      if (data.success) {
-        // Redirigir o guardar token, según tu lógica
+      if ((data.status === 'success' || data.message === 'Login exitoso') && (data.user || data.username)) {
         window.location.href = '/';
+      } else if (data.error) {
+        setError(data.error);
       } else {
-        setError(data.message || 'Usuario o contraseña incorrectos');
+        setError(data.message || 'Correo o contraseña incorrectos');
       }
     } catch (err) {
       setError('Error de conexión con el servidor');
@@ -38,10 +39,10 @@ const Login: React.FC = () => {
       <form className="login-form" onSubmit={handleSubmit}>
         <h2>Iniciar Sesión</h2>
         <input
-          type="text"
-          placeholder="Usuario"
-          value={username}
-          onChange={e => setUsername(e.target.value)}
+          type="email"
+          placeholder="Correo electrónico"
+          value={email}
+          onChange={e => setEmail(e.target.value)}
           required
         />
         <input
